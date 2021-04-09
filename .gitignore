@@ -3,5 +3,4 @@ venv
 mask-yolov3-tiny-prn.cfg
 mask-yolov3-tiny-prn.weights
 .idea
-*.cfg
 *.weights
