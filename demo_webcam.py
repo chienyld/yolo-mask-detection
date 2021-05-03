@@ -58,10 +58,10 @@ while rval:
 
 	# ensure there are *at least* two people detections (required in
 	# order to compute our pairwise distance maps)
-    if len(results) >= 2:
+    if len(results2) >= 2:
 		# extract all centroids from the results and compute the
 		# Euclidean distances between all pairs of the centroids
-        centroids = np.array([r[2] for r in results])
+        centroids = np.array([r[2] for r in results2])
         D = dist.cdist(centroids, centroids, metric="euclidean")
 
 		# loop over the upper triangular of the distance matrix
@@ -79,7 +79,7 @@ while rval:
 					abnormal.add(j)
 
 	# loop over the results
-    for (i, (prob, bbox, centroid)) in enumerate(results):
+    for (i, (prob, bbox, centroid)) in enumerate(results2):
 		# extract the bounding box and centroid coordinates, then
 		# initialize the color of the annotation
         (startX, startY, endX, endY) = bbox
