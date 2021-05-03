@@ -74,10 +74,9 @@ while rval:
                     serious.add(i)
                     serious.add(j)
                 # update our abnormal set if the centroid distance is below max distance limit
-				if (D[i, j] < config.MAX_DISTANCE) and not serious:
-					abnormal.add(i)
-					abnormal.add(j)
-
+                if (D[i, j] < config.MAX_DISTANCE) and not serious:
+                    abnormal.add(i)
+                    abnormal.add(j)
 	# loop over the results
     for (i, (prob, bbox, centroid)) in enumerate(results):
 		# extract the bounding box and centroid coordinates, then
