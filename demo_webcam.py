@@ -3,8 +3,8 @@ import cv2
 from imutils.video import VideoStream, FPS
 from scipy.spatial import distance as dist
 import numpy as np
-import argparse, imutils, cv2, os, time, schedule
-
+import argparse, imutils, os, time, schedule
+import config
 from yolo import YOLO
 
 ap = argparse.ArgumentParser()
@@ -41,7 +41,7 @@ else:
     rval = False
 
 while rval:
-    width, height, inference_time, results = yolo.inference(frame)
+    width, height, inference_time, results, results2 = yolo.inference(frame)
     for detection in results:
         id, name, confidence, x, y, w, h = detection
         cx = x + (w / 2)
@@ -74,9 +74,9 @@ while rval:
                     serious.add(i)
                     serious.add(j)
                 # update our abnormal set if the centroid distance is below max distance limit
-				if (D[i, j] < config.MAX_DISTANCE) and not serious:
-					abnormal.add(i)
-					abnormal.add(j)
+                if (D[i, j] < config.MAX_DISTANCE) and not serious:
+                    abnormal.add(i)
+                    abnormal.add(j)
 
 	# loop over the results
     for (i, (prob, bbox, centroid)) in enumerate(results2):

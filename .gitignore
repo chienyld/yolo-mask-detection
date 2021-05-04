@@ -1,5 +1,3 @@
 venv
 *.pyc
-mask-yolov3-tiny-prn.cfg
-mask-yolov3-tiny-prn.weights
 .idea

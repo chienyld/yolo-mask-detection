@@ -1,7 +1,7 @@
 import argparse
 import cv2
 
-from yolo import YOLO
+from yolo_bk import YOLO
 
 ap = argparse.ArgumentParser()
 ap.add_argument("video", help="Path to video file")
