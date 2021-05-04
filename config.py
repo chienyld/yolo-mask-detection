@@ -24,7 +24,7 @@ MAIL = ''
 # Set if GPU should be used for computations; Otherwise uses the CPU by default.
 USE_GPU = True
 # Define the max/min safe distance limits (in pixels) between 2 people.
-MAX_DISTANCE = 80
-MIN_DISTANCE = 50
+MAX_DISTANCE = 180
+MIN_DISTANCE = 130
 #===============================================================================
 #===============================================================================

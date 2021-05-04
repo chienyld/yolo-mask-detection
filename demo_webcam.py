@@ -33,7 +33,7 @@ colors = [(0, 255, 0), (0, 165, 255), (0, 0, 255)]
 
 print("starting webcam...")
 cv2.namedWindow("preview")
-vc = cv2.VideoCapture(0)
+vc = cv2.VideoCapture("street01.mp4")
 
 if vc.isOpened():  # try to get the first frame
     rval, frame = vc.read()
