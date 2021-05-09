@@ -67,12 +67,17 @@ class YOLO:
                     # filter detections by (1) ensuring that the object
                     # detected was a person and (2) that the minimum
                     # confidence is met
+<<<<<<< HEAD
                     if confidence > MIN_CONF:
+=======
+                    #if confidence > MIN_CONF:
+>>>>>>> 917f48927db656ba200a2b415bea7a42fe6b9106
                         # scale the bounding box coordinates back relative to
                         # the size of the image, keeping in mind that YOLO
                         # actually returns the center (x, y)-coordinates of
                         # the bounding box followed by the boxes' width and
                         # height
+<<<<<<< HEAD
                         box = detection[0:4] * np.array([iw, ih, iw, ih])
                         (centerX, centerY, width, height) = box.astype("int")
 
@@ -87,6 +92,12 @@ class YOLO:
                         centroids.append((centerX, centerY))
                         confidences.append(float(confidence))
                     
+=======
+                    (centerX, centerY, width, height) = box.astype("int")
+
+                   
+                    centroids.append((centerX, centerY))
+>>>>>>> 917f48927db656ba200a2b415bea7a42fe6b9106
 
 
         idxs = cv2.dnn.NMSBoxes(boxes, confidences, self.confidence, self.threshold)
