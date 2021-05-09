@@ -1,5 +1,5 @@
 import time
-from config import NMS_THRESH, MIN_CONF, People_Counter
+
 import cv2
 import numpy as np
 
@@ -34,14 +34,12 @@ class YOLO:
         boxes = []
         confidences = []
         classIDs = []
-        centroids = []
 
         for output in layerOutputs:
             # loop over each of the detections
             for detection in output:
                 # extract the class ID and confidence (i.e., probability) of
                 # the current object detection
-                personIdx = 3
                 scores = detection[5:]
                 classID = np.argmax(scores)
                 confidence = scores[classID]
@@ -64,35 +62,9 @@ class YOLO:
                     confidences.append(float(confidence))
                     classIDs.append(classID)
 
-                    # filter detections by (1) ensuring that the object
-                    # detected was a person and (2) that the minimum
-                    # confidence is met
-                    if confidence > MIN_CONF:
-                        # scale the bounding box coordinates back relative to
-                        # the size of the image, keeping in mind that YOLO
-                        # actually returns the center (x, y)-coordinates of
-                        # the bounding box followed by the boxes' width and
-                        # height
-                        box = detection[0:4] * np.array([iw, ih, iw, ih])
-                        (centerX, centerY, width, height) = box.astype("int")
-
-                        # use the center (x, y)-coordinates to derive the top
-                        # and and left corner of the bounding box
-                        x = int(centerX - (width / 2))
-                        y = int(centerY - (height / 2))
-
-                        # update our list of bounding box coordinates,
-                        # centroids, and confidences
-                        boxes.append([x, y, int(width), int(height)])
-                        centroids.append((centerX, centerY))
-                        confidences.append(float(confidence))
-                    
-
-
         idxs = cv2.dnn.NMSBoxes(boxes, confidences, self.confidence, self.threshold)
 
         results = []
-        results2 = []
         if len(idxs) > 0:
             for i in idxs.flatten():
                 # extract the bounding box coordinates
@@ -100,14 +72,7 @@ class YOLO:
                 w, h = (boxes[i][2], boxes[i][3])
                 id = classIDs[i]
                 confidence = confidences[i]
-                centroid = centroids[i]
 
                 results.append((id, self.labels[id], confidence, x, y, w, h))
-                r = (confidence, (x, y, x + w, y + h), centroid)
-                results2.append(r)
-        if People_Counter:
-            human_count = "Human count: {}".format(len(idxs))
-            cv2.putText(image, human_count, (470, image.shape[0] - 75), cv2.FONT_HERSHEY_SIMPLEX, 0.70, (0, 0, 0), 2)
 
-        return iw, ih, inference_time, results, results2
-    
+        return iw, ih, inference_time, results

@@ -41,7 +41,7 @@ else:
     rval = False
 
 while rval:
-    width, height, inference_time, results = yolo.inference(frame)
+    width, height, inference_time, results , results2= yolo.inference(frame)
     for detection in results:
         id, name, confidence, x, y, w, h = detection
         cx = x + (w / 2)
